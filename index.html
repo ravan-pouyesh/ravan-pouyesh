@@ -283,7 +283,23 @@ function showResult(){
  document.getElementById('score').textContent=total+' از '+max;
  document.getElementById('scoreBar').style.width=percent+'%';
  document.getElementById('interpretation').textContent=
+ 
  'این عدد فقط خلاصه پاسخ‌های انتخاب‌شده در این پرسش‌نامه تألیفی است. برای برداشت دقیق‌تر، پاسخ‌های هر پرسش را در کنار شرایط و تجربه‌های شخصی خود بررسی کن.';
+ const oldSignature = document.getElementById('reportSignature');
+if (oldSignature) oldSignature.remove();
+
+const signature = document.createElement('div');
+signature.id = 'reportSignature';
+signature.style.cssText = 'margin-top:35px;padding:22px;border-top:1px solid #dfe5dc;text-align:center;line-height:2;color:#344638;';
+
+signature.innerHTML = `
+  <strong>روان‌پویش | سامانه خودارزیابی روان‌شناختی</strong>
+  <p>تدوین و مدیریت پروژه: فائزه اعظمی</p>
+  <p>دانشجوی کارشناسی روان‌شناسی</p>
+  <small>این سامانه با اهداف آموزشی و آگاهی‌بخشی طراحی شده است.</small>
+`;
+
+document.getElementById('result').appendChild(signature);
  document.getElementById('result').scrollIntoView({behavior:'smooth'});
 }
 function closeTest(){
