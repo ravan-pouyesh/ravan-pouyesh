@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>روان‌پویش | فائزه اعظمی</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#f7f7f4;color:#344638;font-family:Vazirmatn,Tahoma,sans-serif}
+header{padding:20px 7%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e5e7df}
+.logo{font-size:25px;font-weight:800}
+.logo span{color:#879681}
+main{max-width:950px;margin:auto;padding:65px 22px}
+.hero{text-align:center;padding:55px 20px;background:#e9e5d9;border-radius:25px}
+h1{font-size:40px;margin:10px}
+p{line-height:2;color:#687468}
+button{background:#344638;color:white;border:0;border-radius:12px;padding:13px 25px;font:inherit;cursor:pointer}
+h2{margin-top:55px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:white;padding:22px;border:1px solid #e5e7df;border-radius:18px}
+.card h3{margin-top:0}
+.card button{width:100%}
+footer{text-align:center;padding:30px;background:#e9e5d9;margin-top:60px;font-size:13px}
+#quiz{display:none;background:white;padding:25px;border-radius:18px;margin-top:25px}
+label{display:block;padding:12px;margin:8px 0;background:#f1f2ed;border-radius:10px}
+#result{display:none;padding:20px;background:#e9e5d9;border-radius:15px;margin-top:20px}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">روان<span>‌پویش</span></div>
+<div>سامانه روان‌شناختی</div>
+</header>
+
+<main>
+<section class="hero">
+<h1>خودت را بهتر بشناس.</h1>
+<p>آغاز مسیری برای شناخت بهتر ویژگی‌ها، احساسات و تجربه‌های روان‌شناختی.</p>
+<button onclick="document.getElementById('tests').scrollIntoView({behavior:'smooth'})">مشاهده آزمون‌ها</button>
+</section>
+
+<section id="tests">
+<h2>آزمون‌های روان‌شناختی</h2>
+<p>یک موضوع را انتخاب کن و به پرسش‌ها پاسخ بده.</p>
+<div class="grid">
+<div class="card"><h3>استرس</h3><p>خودارزیابی تجربه فشار روانی</p><button onclick="startTest()">شروع آزمون</button></div>
+<div class="card"><h3>عزت‌نفس</h3><p>نگاهی به نگرش فرد نسبت به خود</p><button onclick="startTest()">شروع آزمون</button></div>
+<div class="card"><h3>خلق‌وخو</h3><p>توجه به تجربه‌های عاطفی اخیر</p><button onclick="startTest()">شروع آزمون</button></div>
+</div>
+</section>
+
+<div id="quiz">
+<h2>خودارزیابی آموزشی</h2>
+<p>در این نسخه آزمایشی به هر پرسش پاسخ بده.</p>
+<form id="form">
+<div id="questions"></div>
+<button type="submit">مشاهده نتیجه</button>
+</form>
+<div id="result"></div>
+</div>
+</main>
+
+<footer>
+<strong>روان‌پویش</strong>
+<p>بنیان‌گذار و طراح: فائزه اعظمی</p>
+<p>دانشجوی کارشناسی روان‌شناسی</p>
+<p>پروژه مستقل آموزشی و پژوهشی</p>
+</footer>
+
+<script>
+const qs=[
+"در روزهای اخیر احساس فشار زیادی داشته‌ام.",
+"نگرانی گاهی تمرکزم را دشوار می‌کند.",
+"برای استراحت و آرامش زمان کافی دارم.",
+"می‌توانم با شرایط پیش‌بینی‌نشده کنار بیایم.",
+"در روزهای اخیر احساس آرامش داشته‌ام."
+];
+function startTest(){
+document.getElementById('quiz').style.display='block';
+document.getElementById('result').style.display='none';
+document.getElementById('questions').innerHTML=qs.map((q,i)=>`
+<div><p>${i+1}. ${q}</p>
+${['هرگز','گاهی','اغلب'].map((v,j)=>`
+<label><input type="radio" name="q${i}" value="${j}" required> ${v}</label>`).join('')}
+</div>`).join('');
+document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('form').onsubmit=function(e){
+e.preventDefault();
+let score=0;
+for(let i=0;i<5;i++){
+score+=Number(document.querySelector('input[name="q'+i+'"]:checked').value);
+}
+let r=document.getElementById('result');
+r.style.display='block';
+r.innerHTML='<h3>پاسخ‌ها ثبت شد</h3><p>امتیاز نمونه شما: '+score+' از ۱۰</p><p>این امتیاز صرفاً نمایشی است و تفسیر تشخیصی یا بالینی ندارد.</p>';
+};
+</script>
+</body>
+</html>
