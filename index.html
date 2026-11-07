@@ -3,99 +3,295 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#263d32">
 <title>روان‌پویش | فائزه اعظمی</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+:root{
+ --green:#263d32;--sage:#849783;--cream:#f3f0e7;
+ --paper:#fffefa;--ink:#29352e;--muted:#758078;
+ --line:#e7e8df;--shadow:0 12px 35px #263d3210;
+}
 *{box-sizing:border-box}
-body{margin:0;background:#f7f7f4;color:#344638;font-family:Vazirmatn,Tahoma,sans-serif}
-header{padding:20px 7%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e5e7df}
-.logo{font-size:25px;font-weight:800}
-.logo span{color:#879681}
-main{max-width:950px;margin:auto;padding:65px 22px}
-.hero{text-align:center;padding:55px 20px;background:#e9e5d9;border-radius:25px}
-h1{font-size:40px;margin:10px}
-p{line-height:2;color:#687468}
-button{background:#344638;color:white;border:0;border-radius:12px;padding:13px 25px;font:inherit;cursor:pointer}
-h2{margin-top:55px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-.card{background:white;padding:22px;border:1px solid #e5e7df;border-radius:18px}
-.card h3{margin-top:0}
-.card button{width:100%}
-footer{text-align:center;padding:30px;background:#e9e5d9;margin-top:60px;font-size:13px}
-#quiz{display:none;background:white;padding:25px;border-radius:18px;margin-top:25px}
-label{display:block;padding:12px;margin:8px 0;background:#f1f2ed;border-radius:10px}
-#result{display:none;padding:20px;background:#e9e5d9;border-radius:15px;margin-top:20px}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f8f8f4;color:var(--ink);
+ font-family:Vazirmatn,Tahoma,sans-serif}
+button{font:inherit;cursor:pointer}
+header{position:sticky;top:0;z-index:5;background:#f8f8f4ee;
+ backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{max-width:1100px;margin:auto;padding:15px 22px;
+ display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:24px;font-weight:800;color:var(--green)}
+.logo span{color:var(--sage)}
+nav{display:flex;gap:22px}
+nav a{color:var(--muted);text-decoration:none;font-size:14px}
+nav a:hover{color:var(--green)}
+.wrap{max-width:1050px;margin:auto;padding:35px 22px}
+.hero{background:var(--cream);border:1px solid #e9e5d9;
+ border-radius:28px;padding:65px 30px;text-align:center}
+.eyebrow{color:#71836f;font-size:13px;font-weight:700;letter-spacing:.3px}
+h1{font-size:clamp(32px,6vw, fifty);font-size:clamp(32px,6vw,50px);
+ line-height:1.5;color:var(--green);margin:15px 0}
+.hero p{max-width:620px;margin:0 auto 25px;color:#68746b;line-height:2.2}
+.primary,.secondary{border:0;border-radius:12px;padding:13px 23px;
+ background:var(--green);color:white;font-weight:600}
+.secondary{background:#e9eee7;color:var(--green)}
+.primary:hover{background:#385544}
+.section{margin-top:65px}
+.section-head{margin-bottom:22px}
+.section h2{font-size:25px;color:var(--green);margin:0 0 8px}
+.section-head p,.muted{color:var(--muted);line-height:2}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{background:var(--paper);border:1px solid var(--line);
+ border-radius:20px;padding:23px;box-shadow:var(--shadow)}
+.symbol{width:46px;height:46px;border-radius:14px;background:#edf0e9;
+ display:grid;place-items:center;font-size:22px;margin-bottom:16px}
+.card h3{margin:0 0 8px;color:var(--green);font-size:19px}
+.card p{font-size:14px;color:var(--muted);line-height:2;min-height:55px}
+.card button{width:100%;margin-top:10px}
+.tag{display:inline-block;background:#edf0e9;color:#526b55;
+ border-radius:30px;padding:5px 11px;font-size:12px}
+.about{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
+.about .card{padding:28px}
+.about strong{color:var(--green)}
+.note{background:#f0f2ed;border-right:4px solid var(--sage);
+ padding:16px 18px;border-radius:12px;color:#58665b;
+ font-size:13px;line-height:2}
+#assessment{display:none;margin-top:35px}
+.testbox{background:white;border:1px solid var(--line);
+ border-radius:22px;padding:25px;box-shadow:var(--shadow)}
+.testtop{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.progress{height:8px;background:#edf0e9;border-radius:20px;
+ overflow:hidden;margin:20px 0}
+.progress div{height:100%;background:var(--sage);width:0;transition:.2s}
+.question{font-size:19px;line-height:2;color:var(--green);margin:22px 0}
+.answers{display:grid;gap:10px}
+.answer{display:flex;align-items:center;gap:10px;padding:13px;
+ border:1px solid var(--line);border-radius:12px;cursor:pointer}
+.answer:has(input:checked){border-color:var(--sage);background:#f1f4ef}
+.answer input{accent-color:var(--green);width:17px;height:17px}
+.actions{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
+.actions button:disabled{opacity:.4;cursor:not-allowed}
+#result{display:none;margin-top:20px}
+.result-score{font-size:34px;font-weight:800;color:var(--green)}
+.result-bar{height:12px;background:#e9eee7;border-radius:20px;overflow:hidden}
+.result-bar div{height:100%;background:var(--sage)}
+footer{margin-top:70px;background:var(--green);color:#fff;
+ padding:35px 22px;text-align:center}
+footer p{color:#d6dfd6;font-size:13px;line-height:2}
+footer strong{font-size:20px}
+@media(max-width:720px){
+ nav{gap:12px}nav a{font-size:12px}
+ .cards{grid-template-columns:1fr}
+ .about{grid-template-columns:1fr}
+ .hero{padding:45px 20px}
+ .wrap{padding:25px 16px}
+}
+@media print{
+ header,.hero,#tests,.about,footer,.actions{display:none!important}
+ body{background:white}
+ #assessment{display:block!important}
+ .testbox{box-shadow:none;border:0}
+}
 </style>
 </head>
 <body>
+
 <header>
-<div class="logo">روان<span>‌پویش</span></div>
-<div>سامانه روان‌شناختی</div>
+ <div class="nav">
+  <div class="logo">روان<span>‌پویش</span></div>
+  <nav>
+   <a href="#home">خانه</a>
+   <a href="#tests">خودارزیابی‌ها</a>
+   <a href="#about">درباره پروژه</a>
+  </nav>
+ </div>
 </header>
 
-<main>
-<section class="hero">
-<h1>خودت را بهتر بشناس.</h1>
-<p>آغاز مسیری برای شناخت بهتر ویژگی‌ها، احساسات و تجربه‌های روان‌شناختی.</p>
-<button onclick="document.getElementById('tests').scrollIntoView({behavior:'smooth'})">مشاهده آزمون‌ها</button>
-</section>
+<main class="wrap">
+ <section class="hero" id="home">
+  <div class="eyebrow">شناخت بهتر، آگاهی بیشتر</div>
+  <h1>مسیر شناخت خودت را آغاز کن.</h1>
+  <p>روان‌پویش فضایی آموزشی برای تأمل درباره احساسات، تجربه‌ها و شناخت بهتر جنبه‌های مختلف زندگی روان‌شناختی است.</p>
+  <button class="primary" onclick="document.getElementById('tests').scrollIntoView({behavior:'smooth'})">
+   مشاهده خودارزیابی‌ها
+  </button>
+ </section>
 
-<section id="tests">
-<h2>آزمون‌های روان‌شناختی</h2>
-<p>یک موضوع را انتخاب کن و به پرسش‌ها پاسخ بده.</p>
-<div class="grid">
-<div class="card"><h3>استرس</h3><p>خودارزیابی تجربه فشار روانی</p><button onclick="startTest()">شروع آزمون</button></div>
-<div class="card"><h3>عزت‌نفس</h3><p>نگاهی به نگرش فرد نسبت به خود</p><button onclick="startTest()">شروع آزمون</button></div>
-<div class="card"><h3>خلق‌وخو</h3><p>توجه به تجربه‌های عاطفی اخیر</p><button onclick="startTest()">شروع آزمون</button></div>
-</div>
-</section>
+ <section class="section" id="tests">
+  <div class="section-head">
+   <h2>خودارزیابی‌های روان‌شناختی</h2>
+   <p>موضوع موردنظرت را انتخاب کن و با توجه به تجربه‌های اخیرت پاسخ بده.</p>
+  </div>
+  <div class="cards">
+   <article class="card">
+    <div class="symbol">🌿</div>
+    <span class="tag">خودارزیابی آموزشی</span>
+    <h3>تجربه استرس</h3>
+    <p>مروری بر احساس فشار، نگرانی و شیوه مواجهه با موقعیت‌های دشوار.</p>
+    <button class="primary" onclick="startTest('stress')">شروع خودارزیابی</button>
+   </article>
+   <article class="card">
+    <div class="symbol">◇</div>
+    <span class="tag">خودارزیابی آموزشی</span>
+    <h3>نگرش به خود</h3>
+    <p>فرصتی برای توجه به ارزشمندی شخصی و نگاه فرد به توانایی‌های خود.</p>
+    <button class="primary" onclick="startTest('esteem')">شروع خودارزیابی</button>
+   </article>
+   <article class="card">
+    <div class="symbol">☼</div>
+    <span class="tag">خودارزیابی آموزشی</span>
+    <h3>تجربه خلق‌وخو</h3>
+    <p>توجه به حالات عاطفی و تجربه‌های احساسی در روزهای اخیر.</p>
+    <button class="primary" onclick="startTest('mood')">شروع خودارزیابی</button>
+   </article>
+  </div>
+ </section>
 
-<div id="quiz">
-<h2>خودارزیابی آموزشی</h2>
-<p>در این نسخه آزمایشی به هر پرسش پاسخ بده.</p>
-<form id="form">
-<div id="questions"></div>
-<button type="submit">مشاهده نتیجه</button>
-</form>
-<div id="result"></div>
-</div>
+ <section id="assessment">
+  <div class="testbox">
+   <div class="testtop">
+    <strong id="testTitle">خودارزیابی</strong>
+    <span class="tag" id="counter">پرسش ۱</span>
+   </div>
+   <div class="progress"><div id="progress"></div></div>
+   <p class="muted">با توجه به تجربه خود در دو هفته اخیر پاسخ بده. پاسخ درست یا غلطی وجود ندارد.</p>
+   <div id="questionArea"></div>
+   <div class="actions">
+    <button class="secondary" id="backBtn" onclick="previousQuestion()" disabled>قبلی</button>
+    <button class="primary" id="nextBtn" onclick="nextQuestion()">بعدی</button>
+   </div>
+  </div>
+  <div class="testbox" id="result">
+   <span class="tag">گزارش خودارزیابی</span>
+   <h2 id="resultTitle">نتیجه</h2>
+   <div class="result-score" id="score"></div>
+   <div class="result-bar"><div id="scoreBar"></div></div>
+   <p id="interpretation" class="muted"></p>
+   <div class="note">این گزارش صرفاً آموزشی و تأملی است. پرسش‌ها و امتیازدهی این نسخه تألیفی‌اند و اعتبارسنجی روان‌سنجی نشده‌اند؛ بنابراین برای تشخیص یا تصمیم درمانی مناسب نیستند.</div>
+   <div class="actions">
+    <button class="secondary" onclick="window.print()">چاپ / ذخیره PDF</button>
+    <button class="primary" onclick="closeTest()">بازگشت به آزمون‌ها</button>
+   </div>
+  </div>
+ </div>
+ </section>
+
+ <section class="section" id="about">
+  <div class="section-head">
+   <h2>درباره روان‌پویش</h2>
+   <p>یک پروژه مستقل آموزشی در حوزه روان‌شناسی.</p>
+  </div>
+  <div class="about">
+   <div class="card">
+    <h3>هدف ما</h3>
+    <p class="muted">روان‌پویش با هدف فراهم‌کردن فضایی ساده و قابل‌دسترس برای آشنایی با مفاهیم روان‌شناختی و خودارزیابی آموزشی طراحی شده است.</p>
+    <div class="note">نتایج خودارزیابی‌ها جایگزین مصاحبه تخصصی، ارزیابی بالینی یا مشاوره با متخصص نیستند.</div>
+   </div>
+   <div class="card">
+    <span class="tag">بنیان‌گذار و طراح پروژه</span>
+    <h3 style="font-size:23px;margin-top:15px">فائزه اعظمی</h3>
+    <p class="muted">دانشجوی کارشناسی روان‌شناسی</p>
+    <p class="muted">پروژه مستقل آموزشی و پژوهشی</p>
+   </div>
+  </div>
+ </section>
 </main>
 
 <footer>
-<strong>روان‌پویش</strong>
-<p>بنیان‌گذار و طراح: فائزه اعظمی</p>
-<p>دانشجوی کارشناسی روان‌شناسی</p>
-<p>پروژه مستقل آموزشی و پژوهشی</p>
+ <strong>روان‌پویش</strong>
+ <p>بنیان‌گذار و طراح: فائزه اعظمی<br>دانشجوی کارشناسی روان‌شناسی</p>
+ <p>این سامانه ابزار تشخیص یا درمان نیست.</p>
 </footer>
 
 <script>
-const qs=[
-"در روزهای اخیر احساس فشار زیادی داشته‌ام.",
-"نگرانی گاهی تمرکزم را دشوار می‌کند.",
-"برای استراحت و آرامش زمان کافی دارم.",
-"می‌توانم با شرایط پیش‌بینی‌نشده کنار بیایم.",
-"در روزهای اخیر احساس آرامش داشته‌ام."
-];
-function startTest(){
-document.getElementById('quiz').style.display='block';
-document.getElementById('result').style.display='none';
-document.getElementById('questions').innerHTML=qs.map((q,i)=>`
-<div><p>${i+1}. ${q}</p>
-${['هرگز','گاهی','اغلب'].map((v,j)=>`
-<label><input type="radio" name="q${i}" value="${j}" required> ${v}</label>`).join('')}
-</div>`).join('');
-document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
-}
-document.getElementById('form').onsubmit=function(e){
-e.preventDefault();
-let score=0;
-for(let i=0;i<5;i++){
-score+=Number(document.querySelector('input[name="q'+i+'"]:checked').value);
-}
-let r=document.getElementById('result');
-r.style.display='block';
-r.innerHTML='<h3>پاسخ‌ها ثبت شد</h3><p>امتیاز نمونه شما: '+score+' از ۱۰</p><p>این امتیاز صرفاً نمایشی است و تفسیر تشخیصی یا بالینی ندارد.</p>';
+const tests={
+ stress:{
+  title:"خودارزیابی تجربه استرس",
+  questions:[
+   "در موقعیت‌های روزمره احساس می‌کنم فشار زیادی را تحمل می‌کنم.",
+   "نگرانی‌ها تمرکز کردن را برایم دشوار می‌کنند.",
+   "احساس می‌کنم زمان کافی برای رسیدگی به کارهایم ندارم.",
+   "در مواجهه با اتفاقات پیش‌بینی‌نشده آرامش خود را حفظ می‌کنم.",
+   "پس از یک روز دشوار می‌توانم به آرامش برگردم."
+  ],
+  reverse:[3,4]
+ },
+ esteem:{
+  title:"خودارزیابی نگرش به خود",
+  questions:[
+   "می‌توانم بعضی از ویژگی‌های مثبت خودم را نام ببرم.",
+   "احساس می‌کنم برای دیگران ارزشمند هستم.",
+   "اشتباه کردن باعث می‌شود ارزش خودم را زیر سؤال ببرم.",
+   "می‌توانم توانایی‌ها و محدودیت‌های خودم را بپذیرم.",
+   "برای نظر و احساس خودم احترام قائلم."
+  ],
+  reverse:[]
+ },
+ mood:{
+  title:"خودارزیابی تجربه خلق‌وخو",
+  questions:[
+   "در روزهای اخیر لحظاتی از شادی یا رضایت را تجربه کرده‌ام.",
+   "در روزهای اخیر علاقه‌ام به فعالیت‌های معمول کمتر شده است.",
+   "تغییرات احساسی روی فعالیت‌های روزمره‌ام اثر گذاشته‌اند.",
+   "معمولاً می‌توانم درباره احساساتم با خودم صادق باشم.",
+   "در روزهای اخیر احساس آرامش و تعادل داشته‌ام."
+  ],
+  reverse:[]
+ }
 };
+const options=["هرگز","به‌ندرت","گاهی","اغلب"];
+let currentTest=null,index=0,answers=[];
+function startTest(type){
+ currentTest=tests[type];index=0;answers=[];
+ document.getElementById('assessment').style.display='block';
+ document.getElementById('result').style.display='none';
+ document.getElementById('testTitle').textContent=currentTest.title;
+ renderQuestion();
+ document.getElementById('assessment').scrollIntoView({behavior:'smooth'});
+}
+function renderQuestion(){
+ const q=currentTest.questions[index];
+ document.getElementById('counter').textContent=`پرسش ${index+1} از ${currentTest.questions.length}`;
+ document.getElementById('progress').style.width=((index+1)/currentTest.questions.length*100)+'%';
+ document.getElementById('questionArea').innerHTML=
+ `<div class="question">${index+1}. ${q}</div><div class="answers">`+
+ options.map((o,i)=>`<label class="answer"><input type="radio" name="answer" value="${i}" ${answers[index]===i?'checked':''}><span>${o}</span></label>`).join('')+
+ `</div>`;
+ document.getElementById('backBtn').disabled=index===0;
+ document.getElementById('nextBtn').textContent=index===currentTest.questions.length-1?'مشاهده گزارش':'بعدی';
+}
+function nextQuestion(){
+ const selected=document.querySelector('input[name="answer"]:checked');
+ if(!selected){alert('لطفاً یکی از گزینه‌ها را انتخاب کن.');return}
+ answers[index]=Number(selected.value);
+ if(index<currentTest.questions.length-1){index++;renderQuestion()}
+ else showResult();
+}
+function previousQuestion(){if(index>0){index--;renderQuestion()}}
+function showResult(){
+ let total=0;
+ answers.forEach((v,i)=>{
+  total+=currentTest.reverse.includes(i)?3-v:v;
+ });
+ const max=currentTest.questions.length*3;
+ const percent=Math.round(total/max*100);
+ document.getElementById('questionArea').style.display='none';
+ document.querySelector('.actions').style.display='none';
+ document.getElementById('result').style.display='block';
+ document.getElementById('resultTitle').textContent=currentTest.title;
+ document.getElementById('score').textContent=total+' از '+max;
+ document.getElementById('scoreBar').style.width=percent+'%';
+ document.getElementById('interpretation').textContent=
+ 'این عدد فقط خلاصه پاسخ‌های انتخاب‌شده در این پرسش‌نامه تألیفی است. برای برداشت دقیق‌تر، پاسخ‌های هر پرسش را در کنار شرایط و تجربه‌های شخصی خود بررسی کن.';
+ document.getElementById('result').scrollIntoView({behavior:'smooth'});
+}
+function closeTest(){
+ document.getElementById('assessment').style.display='none';
+ document.getElementById('questionArea').style.display='block';
+ document.querySelector('#assessment .actions').style.display='flex';
+ document.getElementById('tests').scrollIntoView({behavior:'smooth'});
+}
 </script>
 </body>
 </html>
